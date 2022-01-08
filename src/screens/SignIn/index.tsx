@@ -23,7 +23,9 @@ const SignIn: React.FC = () => {
 
       await schema.validate({ username, password });
 
-      signIn({ username, password });
+      signIn({ username, password }).catch(err => {
+        Alert.alert(err.message);
+      });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert('Opa', error.message);

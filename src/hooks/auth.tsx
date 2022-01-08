@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 
 interface User {
   id: number;
@@ -48,13 +49,8 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [bd, setBd] = useState<User[]>([{
-    id: 0,
-    name: 'Lucas vinicius alencar alves',
-    username: 'lukevinicius',
-    password: '102030'
-  }])
-  const [id, setId] = useState(0)
+  const [bd, setBd] = useState<User[]>([])
+  const [id, setId] = useState(1)
   const [data, setData] = useState<UserData>({} as UserData);
   const userStorageKey = '@challenge:user';
 
@@ -72,6 +68,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         setData(userLogged);
         await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged))
+      } else {
+        Alert.alert('Credenciais inválidas!')
       }
     } catch (error: any) {
       throw new Error(error);

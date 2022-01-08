@@ -40,13 +40,13 @@ export function SignUp() {
         await schema.validate({ username, name, password });
         const userFound = bd.find(data => data.username === username)
 
-        if (!userFound) {
+        if (userFound) {
           await signUp({ name, username, password }).then(() => {
-            Alert.alert('Cadastro feito com sucesso!')
-            navigation.navigate('SignIn');
+            Alert.alert('Usuário já existe')
           });
         } else {
-          Alert.alert('Usuário já existe')
+          Alert.alert('Cadastro feito com sucesso!')
+          navigation.navigate('SignIn');
         }
       }
     } catch (error) {
