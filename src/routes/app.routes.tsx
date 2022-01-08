@@ -1,5 +1,5 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/Feather'
+import React, { useEffect } from 'react';
+import Icon from 'react-native-vector-icons/Feather';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
@@ -8,6 +8,7 @@ import theme from '../global/styles/theme';
 
 import { Home } from '../screens/Home';
 import { AddMarker } from '../screens/AddMaker';
+import { Profile } from '../screens/profile';
 
 const AppRoutes: React.FC = () => (
   <>
@@ -39,6 +40,17 @@ const AppRoutes: React.FC = () => (
           tabBarIcon: (({ size, color }) => (
             <Icon
               name="map-pin"
+              size={size}
+              color={color}
+            />
+          ))
+        }}
+      />
+      <Tab.Screen name="Profile" component={Profile}
+        options={{
+          tabBarIcon: (({ size, color }) => (
+            <Icon
+              name="user"
               size={size}
               color={color}
             />
