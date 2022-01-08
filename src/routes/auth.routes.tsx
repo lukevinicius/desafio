@@ -1,12 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text } from 'react-native';
+import SignIn from '../screens/SignIn';
 
 const { Navigator, Screen } = createStackNavigator();
-
-function Example() {
-  return (<Text>Autenticação</Text>)
-}
 
 const AuthRoutes: React.FC = () => (
   <>
@@ -15,7 +11,7 @@ const AuthRoutes: React.FC = () => (
     }>
       <Screen
         name="SignIn"
-        component={Example}
+        component={SignIn}
       />
     </Navigator>
   </>

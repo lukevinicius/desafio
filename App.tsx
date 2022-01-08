@@ -6,14 +6,17 @@ import theme from './src/global/styles/theme';
 
 import { MarkerProvider } from './src/hooks/markers'
 import { Routes } from './src/routes';
+import { AuthProvider } from './src/hooks/auth';
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <MarkerProvider>
-        <Routes />
-        <StatusBar style="auto" />
-      </MarkerProvider>
+      <AuthProvider>
+        <MarkerProvider>
+          <Routes />
+          <StatusBar style="auto" />
+        </MarkerProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
