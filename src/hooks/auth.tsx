@@ -14,7 +14,12 @@ interface User {
   name: string;
   username: string;
   password: string;
-  token: string;
+}
+
+interface UserData {
+  id: number;
+  name: string;
+  username: string;
 }
 
 interface UserCreate {
@@ -29,7 +34,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: User;
+  user: UserData;
   bd: User[];
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signUp: (user: UserCreate) => Promise<void>
@@ -47,20 +52,19 @@ function AuthProvider({ children }: AuthProviderProps) {
     id: 0,
     name: 'Lucas vinicius alencar alves',
     username: 'lukevinicius',
-    password: '102030',
-    token: ''
+    password: '102030'
   }])
-  const [data, setData] = useState<User>({} as User);
+  const [id, setId] = useState(0)
+  const [data, setData] = useState<UserData>({} as UserData);
   const userStorageKey = '@challenge:user';
 
   async function signIn({ username, password }: SignInCredentials) {
     try {
       const response = await bd.find(data => data.username === username);
-      const id = await bd.indexOf(username)
 
       if (response?.password === password && response?.username === username) {
         const userLogged = {
-          id: id,
+          id: response.id,
           name: response.name,
           username: response.username,
           token: '1020304050'
@@ -81,7 +85,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   async function signUp({ name, username, password }: UserCreate) {
     try {
-      bd.push({ name, username, password })
+      bd.push({ id: id, name, username, password })
+      setId(id + 1)
     } catch (error: any) {
       throw new Error(error);
     }

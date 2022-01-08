@@ -6,6 +6,7 @@ import { Alert, StyleSheet } from 'react-native';
 import { Container } from './styles';
 
 import { useMarker } from '../../hooks/markers';
+import { useAuth } from '../../hooks/auth';
 
 interface IRegion {
   latitude: number;
@@ -15,7 +16,7 @@ interface IRegion {
 }
 
 interface IMarker {
-  /* userId: string; */
+  userId: number;
   title: string;
   description: string;
   latitude: number;
@@ -32,6 +33,7 @@ export function Home() {
   const [data, setData] = useState<IMarker[]>([])
   const [load, setLoad] = useState(true)
 
+  const { user } = useAuth();
   const { markers } = useMarker()
   const navigation = useNavigation();
 
@@ -40,7 +42,10 @@ export function Home() {
   }
 
   async function findData() {
-    setData(markers)
+    const dataFound = markers.filter(marker => marker.userId === user.id)
+    console.log(dataFound)
+    console.log(user.id)
+    setData(dataFound)
   }
 
   useEffect(() => {

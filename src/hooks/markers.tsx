@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 interface Marker {
-  /* userId: string; */
+  userId: number;
   title: string;
   description: string;
   latitude: number;
@@ -27,9 +27,9 @@ const MarkerContext = createContext<MarkerContextData>({} as MarkerContextData);
 function MarkerProvider({ children }: MarkerProviderProps) {
   const [data, setData] = useState<Marker[]>([]);
 
-  async function createMarker({ /* userId, */ title, description, latitude, longitude }: Marker) {
+  async function createMarker({ userId, title, description, latitude, longitude }: Marker) {
     const info = {
-      /* userId: userId, */
+      userId: userId,
       title: title,
       description: description,
       latitude: latitude,

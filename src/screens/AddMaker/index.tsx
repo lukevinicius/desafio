@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import MapView, { Marker } from 'react-native-maps'
 import * as Yup from 'yup';
@@ -8,6 +8,7 @@ import theme from '../../global/styles/theme'
 import { Container, TitleInput, CreateButton } from './styles'
 
 import { useMarker } from '../../hooks/markers'
+import { useAuth } from '../../hooks/auth';
 
 interface IRegion {
   latitude: number;
@@ -23,12 +24,13 @@ export function AddMarker() {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const [address, setAddress] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [address, setAddress] = useState('Rua joana alexandre damasceno');
+  const [title, setTitle] = useState('teste');
+  const [description, setDescription] = useState('teste');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
+  const { user } = useAuth();
   const { createMarker } = useMarker();
 
   function onRegionChange(region: IRegion) {
@@ -65,7 +67,7 @@ export function AddMarker() {
 
       await schema.validate({ title, description, latitude, longitude });
 
-      await createMarker({ title, description, latitude, longitude }).then(() => {
+      await createMarker({ userId: user.id, title, description, latitude, longitude }).then(() => {
         Alert.alert('Cadastro feito com sucesso!')
       })
     } catch (error: any) {
@@ -124,10 +126,10 @@ export function AddMarker() {
         </Container>
         <View style={{ flexDirection: 'row', backgroundColor: theme.colors.primaryDark }}>
           <CreateButton style={{ flex: 0.5 }} onPress={findData}>
-            <Text>Buscar Marker</Text>
+            <Text style={{ color: theme.colors.background }}>Buscar Marker</Text>
           </CreateButton>
           <CreateButton style={{ flex: 0.5 }} onPress={handleAddPost}>
-            <Text>Criar Post</Text>
+            <Text style={{ color: theme.colors.background }}>Criar Post</Text>
           </CreateButton>
         </View>
       </ScrollView>

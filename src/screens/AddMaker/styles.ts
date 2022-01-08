@@ -12,7 +12,7 @@ export const TitleInput = styled.TextInput`
   border-radius: 10px;
   text-align: justify;
   background-color: ${({ theme }) => theme.colors.shape};
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.title};
   font-size: 16px;
 `
 export const CreateButton = styled(TouchableOpacity)`
