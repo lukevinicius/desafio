@@ -13,7 +13,14 @@ interface User {
   id: number;
   name: string;
   username: string;
+  password: string;
   token: string;
+}
+
+interface UserCreate {
+  name: string;
+  username: string;
+  password: string;
 }
 
 interface SignInCredentials {
@@ -23,7 +30,9 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user: User;
+  bd: User[];
   signIn: (credentials: SignInCredentials) => Promise<void>;
+  signUp: (user: UserCreate) => Promise<void>
   signOut: () => Promise<void>;
 }
 
@@ -34,10 +43,12 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [bd, setBd] = useState([{
+  const [bd, setBd] = useState<User[]>([{
+    id: 0,
     name: 'Lucas vinicius alencar alves',
     username: 'lukevinicius',
-    password: '102030'
+    password: '102030',
+    token: ''
   }])
   const [data, setData] = useState<User>({} as User);
   const userStorageKey = '@challenge:user';
@@ -68,6 +79,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     await AsyncStorage.removeItem('@challenge:user');
   }, [setData]);
 
+  async function signUp({ name, username, password }: UserCreate) {
+    try {
+      bd.push({ name, username, password })
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
   useEffect(() => {
     async function loadUserStorageDate() {
       const userStoraged = await AsyncStorage.getItem('@memoirs:user');
@@ -85,7 +104,9 @@ function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         user: data,
+        bd: bd,
         signIn,
+        signUp,
         signOut,
       }}
     >
