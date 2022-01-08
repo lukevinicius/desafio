@@ -43,8 +43,6 @@ export function Home() {
 
   async function findData() {
     const dataFound = markers.filter(marker => marker.userId === user.id)
-    console.log(dataFound)
-    console.log(user.id)
     setData(dataFound)
   }
 

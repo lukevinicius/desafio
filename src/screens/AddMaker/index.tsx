@@ -24,9 +24,9 @@ export function AddMarker() {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const [address, setAddress] = useState('Rua joana alexandre damasceno');
-  const [title, setTitle] = useState('teste');
-  const [description, setDescription] = useState('teste');
+  const [address, setAddress] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
