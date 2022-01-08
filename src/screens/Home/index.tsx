@@ -1,13 +1,25 @@
-import { useState } from 'react'
-import { StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import { useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import MapView, { Marker } from 'react-native-maps';
+
+import { Alert, StyleSheet } from 'react-native';
 import { Container } from './styles';
+
+import { useMarker } from '../../hooks/markers';
 
 interface IRegion {
   latitude: number;
   longitude: number;
   latitudeDelta: number;
   longitudeDelta: number;
+}
+
+interface IMarker {
+  /* userId: string; */
+  title: string;
+  description: string;
+  latitude: number;
+  longitude: number;
 }
 
 export function Home() {
@@ -17,10 +29,24 @@ export function Home() {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   })
+  const [data, setData] = useState<IMarker[]>([])
+  const [load, setLoad] = useState(true)
+
+  const { markers } = useMarker()
+  const navigation = useNavigation();
 
   function onRegionChange(region: IRegion) {
     setRegion(region);
   }
+
+  async function findData() {
+    setData(markers)
+  }
+
+  useEffect(() => {
+    findData();
+    navigation.addListener('focus', () => { setLoad(!load) })
+  }, [load, navigation])
 
   return (
     <Container>
@@ -28,7 +54,20 @@ export function Home() {
         style={StyleSheet.absoluteFillObject}
         region={region}
         onRegionChange={() => onRegionChange}
-      />
+      >
+        {
+          data?.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: marker.latitude,
+                longitude: marker.longitude
+              }}
+              title={marker.title}
+              description={marker.description} />
+          ))
+        }
+      </MapView>
     </Container>
   )
 }
