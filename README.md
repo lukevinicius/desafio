@@ -36,9 +36,9 @@
 
 # :camera: Screenshots
 <div align="center">
-   <img src="./.github/screen1.png" width="200px">
-   <img src="./.github/screen3.png" width="200px">
-   <img src="./.github/screen4.png" width="200px">
+   <img src="./.github/screen1.jpg" width="200px">
+   <img src="./.github/screen3.jpg" width="200px">
+   <img src="./.github/screen4.jpg" width="200px">
 </div>
 
 # :rocket: Technologies
