@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  🎯 This challenge consists in allowing the user to visualize the map and create new Markers representing each of their stores.. Project developed for the Heeds | <a href="https://www.linkedin.com/company/heeds-technologies/">@Heeds</a>
+  🎯 This challenge consists in allowing the user to visualize the map and create new Markers representing each of their stores. Project developed for the Heeds | <a href="https://www.linkedin.com/company/heeds-technologies/">@Heeds</a>
 </p>
 
 <div align="center">
