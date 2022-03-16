@@ -63,7 +63,7 @@ $ git clone https://github.com/lukevinicius/desafio.git
 # Install Dependencies
 $ yarn
 # Run Aplication
-$ yarn dev
+$ expo start
 ```
 Go to http://localhost:3000/ to see the result.
 
