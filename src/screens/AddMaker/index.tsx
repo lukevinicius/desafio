@@ -36,10 +36,11 @@ export function AddMarker() {
   function onRegionChange(region: IRegion) {
     setRegion(region);
   }
-  const API_KEY = 'AIzaSyCwW_E39bmwkvYQPCcWOdvSz2sHLNcbj20'
+  const API_KEY = 'AIzaSyBa4fV3RWPbh7tldGaE1TR_N3Nzs0YGUd4'
 
   async function findData() {
     const dataAddress = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(address)}&key=${API_KEY}`)
+    console.log(dataAddress.data)
     dataAddress.data.results.map((data: any) => {
       setLatitude(data.geometry.location.lat)
       setLongitude(data.geometry.location.lng)
